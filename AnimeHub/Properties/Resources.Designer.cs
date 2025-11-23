@@ -73,9 +73,49 @@ namespace AnimeHub.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _2d2fb2d871d763138c6976cc6efc5ec6 {
+            get {
+                object obj = ResourceManager.GetObject("2d2fb2d871d763138c6976cc6efc5ec6", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _408ff1fd62725a66f129fd591b05d93c {
+            get {
+                object obj = ResourceManager.GetObject("408ff1fd62725a66f129fd591b05d93c", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _4c61a9d107bab8d6a2acd4342c4ba7b9 {
             get {
                 object obj = ResourceManager.GetObject("4c61a9d107bab8d6a2acd4342c4ba7b9", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bee87ad223ccdfb3591f617229aa2fb3 {
+            get {
+                object obj = ResourceManager.GetObject("bee87ad223ccdfb3591f617229aa2fb3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap df45dbc5c4086cb8fddb6548f316db5f {
+            get {
+                object obj = ResourceManager.GetObject("df45dbc5c4086cb8fddb6548f316db5f", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -1,14 +1,5 @@
 ﻿using AnimeHub.Data;
-using AnimeHub.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using AnimeHub.Forms;
 
 namespace AnimeHub
 {
@@ -18,44 +9,20 @@ namespace AnimeHub
         {
             InitializeComponent();
             FormBorderStyle = FormBorderStyle.None;
-        }
 
-        private void btnCadastrar_Click(object sender, EventArgs e)
-        {
-            using (var db = new AnimeContext())
-            {
-                string username = Microsoft.VisualBasic.Interaction.InputBox("Digite um nome de usuário:", "Cadastrar");
-                string password = Microsoft.VisualBasic.Interaction.InputBox("Digite a senha:", "Cadastrar");
+            pnlLogin.Visible = true;
+            pnlRegister.Visible = false;
+            pictureBox1.Visible = true;
+            picImagem2.Visible = false;
 
-                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-                {
-                    MessageBox.Show("Usuário e senha não podem ficar vazios.");
-                    return;
-                }
-
-                if (db.Usuarios.Any(u => u.Username == username))
-                {
-                    MessageBox.Show("Usuário já existe!");
-                    return;
-                }
-
-                var novoUsuario = new Usuario
-                {
-                    Username = username,
-                    Password = password
-                };
-
-                db.Usuarios.Add(novoUsuario);
-                db.SaveChanges();
-
-                MessageBox.Show("Usuário cadastrado com sucesso!");
-            }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
+
+            lblMensagem.ForeColor = Color.Red;
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
@@ -72,7 +39,7 @@ namespace AnimeHub
                 if (usuario != null)
                 {
                     // Abre perfil
-                    FormPerfil perfil = new FormPerfil(usuario);
+                    FrmTelaInicial perfil = new FrmTelaInicial(usuario);
                     perfil.Show();
                     this.Hide();
                 }
@@ -86,34 +53,95 @@ namespace AnimeHub
         private void LoginForm_Load(object sender, EventArgs e)
         {
 
-            btnSairLogin.Cursor = Cursors.Hand;
-
-            btnSairLogin.MouseEnter += (s, e2) =>
-            {
-                btnSairLogin.ForeColor = Color.Red;
-            };
-
-            btnSairLogin.MouseLeave += (s, e2) =>
-            {
-                btnSairLogin.ForeColor = Color.Black;
-            };
-
-            btnSairLogin.MouseClick += (s, e2) =>
-            {
-                Application.Exit();
-            };
+            ConfigurarLabelComoButton(btnSairLogin);
+            ConfigurarLabelComoButton(btnSairRegister);
         }
 
         private void linkForgotPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //RecuperarSenhaForm recuperarSenha = new RecuperarSenhaForm();
-            //recuperarSenha.Show();
+            pnlEsqueceuSenha recuperarSenha = new pnlEsqueceuSenha();
+            recuperarSenha.ShowDialog();
         }
 
         private void linkRegister_Click(object sender, EventArgs e)
         {
-            //RegisterForm register = new RegisterForm();
-            //register.Show();
+            pnlRegister.Visible = true;
+            pnlLogin.Visible = false;
+            pictureBox1.Visible = false;
+            picImagem2.Visible = true;
+
+            lblMensagem.Text = "";
+            txtUsername.Text = "";
+            txtPassword.Text = "";
+
+        }
+
+        private void ConfigurarLabelComoButton(Label lblBtn)
+        {
+            lblBtn.Cursor = Cursors.Hand;
+
+            lblBtn.MouseEnter += (s, e2) => { lblBtn.ForeColor = Color.Red; };
+
+            lblBtn.MouseLeave += (s, e2) => { lblBtn.ForeColor = Color.Black; };
+
+            lblBtn.MouseClick += (s, e2) => { Application.Exit(); };
+        }
+
+        private void CriarConta_Click(object sender, EventArgs e)
+        {
+            using (var db = new AnimeContext())
+            {
+                string username = txtUsernameRg.Text.Trim();
+                string email = txtEmailRg.Text.Trim();
+                string password = txtPasswordRg.Text.Trim();
+                string confirmPassword = txtConfirmPasswordRg.Text.Trim();
+
+                lblMensagemRg.ForeColor = Color.Red;
+
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
+                {
+                    lblMensagemRg.Text = "Preencha todos os campos.";
+                    return;
+                }
+
+                if (db.Usuarios.Any(u => u.Username == username))
+                {
+                    lblMensagemRg.Text = "Usuário já existe!";
+                    return;
+                }
+                if (db.Usuarios.Any(u => u.Email == email))
+                {
+                    lblMensagemRg.Text = "Email ja cadastrado!";
+                    return;
+                }
+
+                if (password != confirmPassword)
+                {
+                    lblMensagemRg.Text = "As senhas devem ser iguais.";
+                    return;
+
+                }
+
+
+
+                lblMensagemRg.Text = "Usuário cadastrado com sucesso!";
+            }
+        }
+
+        private void lblEntrarContaRg_Click(object sender, EventArgs e)
+        {
+            pnlRegister.Visible = false;
+            pnlLogin.Visible = true;
+            pictureBox1.Visible = true;
+            picImagem2.Visible = false;
+
+            txtUsernameRg.Text = "";
+            txtEmailRg.Text = "";
+            txtPasswordRg.Text = "";
+            txtPasswordRg.Text = "";
+            txtConfirmPasswordRg.Text = "";
+
+            lblMensagemRg.Text = "";
         }
     }
 }
